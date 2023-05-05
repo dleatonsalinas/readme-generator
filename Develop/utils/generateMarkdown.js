@@ -20,10 +20,34 @@ const createQuestions = (email, github, repo) => email ? `If you have any questi
 const createCredits = creditItem => creditItem ? creditItem.map(credit => `* [${credit.creditName}](${credit.creditLink})\n`).join('') : '';
 
 // TODO: Create a function to generate markdown for README
-function generateMarkdown(data) {
-  return `# ${data.title}
+const generateMarkdown = (data) => {
+  const { title, github, repo, license } = data;
+  let readmeContents = '';
+  const sectionArr = [
+    { header: 'Installation', content: createInstallation(data.installation) },
+    { header: 'Usage', content: createUsage(data.usage) },
+    { header: 'Built With', content: createBuiltWith(data['built with']) },
+    { header: 'License', content: createLicense(license) },
+    { header: 'Contributing', content: data.contributing },
+    { header: 'Tests', content: createTest(data.tests) },
+    { header: 'Questions', content: createQuestions(data.questions, github, repo) },
+    { header: 'Credits', content: createCredits(data.credits) }
+  ];
+  sectionArr.forEach((sectionItem) => {
+    if (sectionItem.content) {
+      readmeContents += `## ${sectionItem.header}
+${sectionItem.content}
 
 `;
-}
+    }
+  });
+  return `# ${title}
+[![Issues](https://img.shields.io/github/issues/${github}/${repo})](https://github.com/${github}/${repo}/issues) [![Contributors](https://img.shields.io/github/contributors/${github}/${repo})](https://github.com/${github}/${repo}/graphs/contributors) ${addLicenseBadge(license)}
+## Description
+${createDescription(title, data.description, data.link)}
+## Table of Contents
+${createTableOfContents(sectionArr)}
+${readmeContents}`;
+};
 
 module.exports = generateMarkdown;
