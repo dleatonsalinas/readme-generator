@@ -69,9 +69,23 @@ const questions = [
             }
         }
     },
-//TODO: add checkbox contents
     {
-    type: 'input',
+        type: 'checkbox',
+        name: 'contents',
+        message: 'Are there any additional sections you would like to include in your README?',
+        choices: [
+            { name: 'Deployed Application', checked: false },
+            { name: 'Installation', checked: false },
+            { name: 'Built With', checked: true },
+            { name: 'License', checked: false },
+            { name: 'Contributing', checked: false },
+            { name: 'Tests', checked: false },
+            { name: 'Questions', checked: true },
+            { name: 'Credits', checked: true },
+        ]
+    },   
+    {
+        type: 'input',
         name: 'link',
         message: 'Please provide a link to your deployed application.',
         when: ({ contents }) => {
@@ -90,14 +104,14 @@ const questions = [
             }
         }
     },
-//TODO: add installation, license, built with, contributing, tests, contact info, *screenshot, *credit
+    //TODO: add installation, license, built with, contributing, tests, contact info, *screenshot, *credit
 ]
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(fileName, data) { }
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() { }
 
 // Function call to initialize app
 init();
