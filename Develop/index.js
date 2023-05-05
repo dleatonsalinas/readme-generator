@@ -125,9 +125,24 @@ const creditQues = [
     }
 ]
 
+addCredits = (readmeInfo) => {
+    if (!readmeInfo.credits) readmeInfo.credits = [];
+    console.log(`\n`);
+    return inquirer.prompt(creditQues).then((creditData) => {
+        readmeInfo.credits.push(creditData);
+        return creditData.confirmAddCredit ? addCredits(readmeInfo) : readmeInfo;
+    });
+};
+
+
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) { }
+function writeToFile(fileName, data) {
+    fs.writeFile(`./dist/${fileName}`, data, err => {
+      if (err) throw err;
+      console.log('README created');
+    });
+  }
 
 // TODO: Create a function to initialize app
 function init() { }
