@@ -101,9 +101,30 @@ const questions = [
         when: ({ contents }) => contents.includes('Questions'),
         validate: questionsInput => questionsInput ? true : (console.log('Please provide an e-mail address.'), false)
     }
+];
 
-    //TODO: add credit
+//Array of prompts for adding credits to your README
+const creditQues = [
+    {
+        type: 'input',
+        name: 'creditName',
+        message: 'Please give your credit a name. (Required)',
+        validate: creditName => !!creditName || 'Please enter a name for the credit!'
+    },
+    {
+        type: 'input',
+        name: 'creditLink',
+        message: 'Please provide a link for the credit.  (Required)',
+        validate: creditLink => !!creditLink || 'Please enter a name for the credit!'
+    },
+    {
+        type: 'confirm',
+        name: 'confirmAddCredit',
+        message: 'Would you like to add another credit?',
+        default: false
+    }
 ]
+
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) { }
