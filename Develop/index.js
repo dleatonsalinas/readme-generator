@@ -72,9 +72,31 @@ const questions = [
         default: 0,
         when: ({ contents }) => contents.includes('License'),
         validate: licenseInput => licenseInput ? true : 'Please provide license information!'
-    }
-
-    //TODO: add built with, contributing, tests, contact info, *screenshot, *credit
+    },
+    {
+        type: 'checkbox',
+        name: 'built with',
+        message: 'Please select the technologies that your application was built with.',
+        choices: ['HTML', 'CSS', 'SASS', 'JavaScript', 'Node.js', 'Express.js'],
+        default: 0,
+        when: ({ contents }) => contents.indexOf('Built With') > -1
+      },
+      {
+        type: 'input',
+        name: 'contributing',
+        message: 'Please enter your guidelines for contributing.',
+        when: ({ contents }) => contents.indexOf('Contributing') > -1,
+        validate: contributingInput => {
+          if (contributingInput) {
+            return true;
+          } else {
+            console.log('Please enter guidelines for contributing.');
+            return false;
+          }
+        }
+      },
+      
+    //TODO: add tests, contact info, *screenshot, *credit
 ]
 
 // TODO: Create a function to write README file
