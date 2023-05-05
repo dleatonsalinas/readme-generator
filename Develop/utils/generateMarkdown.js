@@ -17,6 +17,8 @@ const createTest = test => test ? `To run tests on the application, install\n\`\
 
 const createQuestions = (email, github, repo) => email ? `If you have any questions about the repo, please [open an issue](https://github.com/${github}/${repo}/issues) or contact me via email at ${email}. You can find more of my work on my GitHub, [${github}](https://github.com/${github}/).` : '';
 
+const createCredits = creditItem => creditItem ? creditItem.map(credit => `* [${credit.creditName}](${credit.creditLink})\n`).join('') : '';
+
 // TODO: Create a function to generate markdown for README
 function generateMarkdown(data) {
   return `# ${data.title}
