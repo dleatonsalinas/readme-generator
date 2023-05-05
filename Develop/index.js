@@ -9,65 +9,31 @@ const questions = [
         type: 'input',
         name: 'title',
         message: 'What is your project title?',
-        validate: nameInput => {
-            if (nameInput) {
-                return true;
-            } else {
-                console.log('Please provide a project title.');
-                return false;
-            }
-        }
+        validate: nameInput => nameInput ? true : 'Please provide a project title.'
     },
     {
         type: 'input',
         name: 'github',
         message: 'Please enter your GitHub username.',
-        validate: githubInput => {
-            if (githubInput) {
-                return true;
-            } else {
-                console.log('Please enter your GitHub username.');
-                return false;
-            }
-        }
+        validate: githubInput => githubInput ? true : 'Please enter your GitHub username.'
     },
     {
         type: 'input',
         name: 'repo',
         message: 'Please enter the name of your repo.',
-        validate: repoInput => {
-            if (repoInput) {
-                return true;
-            } else {
-                console.log('Please enter the name of your repo.')
-            }
-        }
+        validate: repoInput => repoInput ? true : 'Please enter the name of your repo.'
     },
     {
         type: 'input',
         name: 'description',
         message: 'Provide a description of your application.',
-        validate: descInput => {
-            if (descInput) {
-                return true;
-            } else {
-                console.log('Please enter a description.');
-                return false;
-            }
-        }
+        validate: descInput => descInput ? true : 'Please enter a description.'
     },
     {
         type: 'input',
         name: 'usage',
         message: 'Please provide information for using your application.',
-        validate: usageInput => {
-            if (usageInput) {
-                return true;
-            } else {
-                console.log('Please provide information for using your application.');
-                return false;
-            }
-        }
+        validate: usageInput => usageInput ? true : 'Please provide information for using your application.'
     },
     {
         type: 'checkbox',
@@ -83,28 +49,32 @@ const questions = [
             { name: 'Questions', checked: true },
             { name: 'Credits', checked: true },
         ]
-    },   
+    },
     {
         type: 'input',
         name: 'link',
         message: 'Please provide a link to your deployed application.',
-        when: ({ contents }) => {
-            if (contents.indexOf('Deployed Application') > -1) {
-                return true;
-            } else {
-                return false;
-            }
-        },
-        validate: linkInput => {
-            if (linkInput) {
-                return true;
-            } else {
-                console.log('Please enter a link.');
-                return false;
-            }
-        }
+        when: ({ contents }) => contents.includes('Deployed Application'),
+        validate: linkInput => linkInput ? true : 'Please enter a link.'
     },
-    //TODO: add installation, license, built with, contributing, tests, contact info, *screenshot, *credit
+    {
+        type: 'input',
+        name: 'installation',
+        message: 'List any required packages for installation.',
+        when: ({ contents }) => contents.includes('Installation'),
+        validate: installInput => installInput ? true : 'Please enter installation instructions!'
+    },
+    {
+        type: 'list',
+        name: 'license',
+        message: 'Provide license information.',
+        choices: ['MIT', 'GNU', 'Apache 2.0', 'ISC'],
+        default: 0,
+        when: ({ contents }) => contents.includes('License'),
+        validate: licenseInput => licenseInput ? true : 'Please provide license information!'
+    }
+
+    //TODO: add built with, contributing, tests, contact info, *screenshot, *credit
 ]
 
 // TODO: Create a function to write README file
