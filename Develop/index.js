@@ -134,18 +134,22 @@ addCredits = (readmeInfo) => {
     });
 };
 
-
-
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
     fs.writeFile(`./dist/${fileName}`, data, err => {
-      if (err) throw err;
-      console.log('README created');
+        if (err) throw err;
+        console.log('README created');
     });
-  }
+}
 
 // TODO: Create a function to initialize app
-function init() { }
+function init() {
+    inquirer.prompt(questions)
+        .then(userResponse => userResponse && userResponse.contents.indexOf('Credits') > -1 ? addCredits(userResponse) : userResponse || Promise.reject(new Error('User response is empty')))
+        .then(generateMarkdown)
+        .then(generatedReadme => writeToFile('README.md', generatedReadme))
+        .catch(console.log);
+}
 
 // Function call to initialize app
 init();
