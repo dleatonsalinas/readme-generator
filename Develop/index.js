@@ -42,7 +42,6 @@ const questions = [
         choices: [
             { name: 'Deployed Application', checked: false },
             { name: 'Installation', checked: false },
-            { name: 'Screenshots', checked: true },
             { name: 'Built With', checked: true },
             { name: 'License', checked: false },
             { name: 'Contributing', checked: false },

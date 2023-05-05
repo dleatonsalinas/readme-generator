@@ -3,13 +3,18 @@
 const renderLicenseBadge = license => license ? `![${license} License](https://img.shields.io/badge/license-${license.split(' ').join('%20')}-blue)\n` : '';
 
 //Create table of contents and sections based on user input
-const createTableOfContents = contentsArr => contentsArr.map(item => `- [${item}](#${item.toLowerCase().replace(/\s+/g, '-')})`).join('\n');
+const createTableOfContents = contentsArr => contentsArr
+  .filter(item => typeof item === 'string')
+  .map(item => `- [${item}](#${item.toLowerCase().replace(/\s+/g, '-')})`)
+  .join('\n');
 
 const createInstallation = install => install ? `To use this application, please install: \n\`\`\`\n${install}\n\`\`\`` : '';
 
 const createDescription = (title, description, link) => link ? `${description}\n\nView the deployed page at [${title}](${link}).` : `${description}`;
 
 const createBuiltWith = builtWith => builtWith ? builtWith.map(item => `* ${item}`).join('\n') : '';
+
+const createUsage = usage => usage;
 
 const createLicense = license => license ? `This application is licensed under the ${license} license.` : '';
 
@@ -42,7 +47,7 @@ ${sectionItem.content}
     }
   });
   return `# ${title}
-[![Issues](https://img.shields.io/github/issues/${github}/${repo})](https://github.com/${github}/${repo}/issues) [![Contributors](https://img.shields.io/github/contributors/${github}/${repo})](https://github.com/${github}/${repo}/graphs/contributors) ${addLicenseBadge(license)}
+[![Issues](https://img.shields.io/github/issues/${github}/${repo})](https://github.com/${github}/${repo}/issues) [![Contributors](https://img.shields.io/github/contributors/${github}/${repo})](https://github.com/${github}/${repo}/graphs/contributors) ${renderLicenseBadge(license)}
 ## Description
 ${createDescription(title, data.description, data.link)}
 ## Table of Contents
